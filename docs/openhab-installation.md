@@ -1,6 +1,6 @@
 # openHAB 5.1.4 Installation and Configuration
 
-This guide installs the local Fujitsu Airstage binding for openHAB 5.1.4.
+This guide installs the Fujitsu Airstage binding for openHAB 5.1.4.
 
 ## Build Prerequisites
 
@@ -9,11 +9,6 @@ Build on a machine with:
 - Java Development Kit 21.
 - Maven 3.9 or newer.
 - Network access to Maven repositories.
-
-This workspace was verified with:
-
-- Eclipse Temurin JDK `21.0.11`, installed locally under `/home/user/codex/.tools/jdk-21`.
-- Apache Maven `3.9.9`, installed locally under `/home/user/codex/.tools/maven`.
 
 ## Build
 
@@ -40,13 +35,7 @@ JAVA_HOME=/path/to/jdk-21 PATH=/path/to/maven/bin:/path/to/jdk-21/bin:$PATH \
   mvn -pl :org.openhab.binding.fujitsuairstage -am package -Dspotless.check.skip=true -DskipChecks
 ```
 
-The local verified output was:
-
-```text
-/home/user/codex/.tools/openhab-addons-5.1.4/bundles/org.openhab.binding.fujitsuairstage/target/org.openhab.binding.fujitsuairstage-5.1.4.jar
-```
-
-The generated JAR size was `20827` bytes.
+The generated JAR is written to `bundles/org.openhab.binding.fujitsuairstage/target/` inside the `openhab-addons` checkout.
 
 ## Install Into openHAB
 
@@ -61,7 +50,9 @@ On Docker installations, mount or copy the JAR into the container's `/openhab/ad
 
 ## Thing Configuration
 
-Create a Thing in Main UI or textual configuration.
+In Main UI, go to Settings -> Things -> Add Thing -> Fujitsu Airstage and press Scan. The binding scans directly connected IPv4 networks, derives the Device ID from the candidate MAC address, verifies the local Airstage API, and fills `host` plus `deviceId` in the discovered Thing.
+
+You can also create a Thing manually in Main UI or textual configuration.
 
 Example `.things` file:
 

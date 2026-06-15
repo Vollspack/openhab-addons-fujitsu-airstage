@@ -1,15 +1,13 @@
 # Fujitsu Airstage Local API Notes
 
-These notes document the local API behavior observed against the Fujitsu Airstage WLAN module at `192.0.2.10`.
+These notes document observed local API behavior for Fujitsu Airstage WLAN modules.
 
 ## Base Information
 
-- Hostname: `airstage.dhcp.internal.hennecke-net.org`
-- IP address: `192.0.2.10`
-- MAC address: `aa:bb:cc:dd:ee:ff`
-- Device ID: `AABBCCDDEEFF`
-- Status endpoint: `POST http://192.0.2.10/GetParam`
-- Command endpoint: `POST http://192.0.2.10/SetParam`
+- Hostname or IP address: configured per Thing.
+- Device ID: WLAN module MAC address without colons, uppercase, for example `AABBCCDDEEFF`.
+- Status endpoint: `POST http://<host>/GetParam`
+- Command endpoint: `POST http://<host>/SetParam`
 - Tested content types: `text/plain` and `application/json`
 
 The API accepts JSON request bodies. The community examples use `Content-Type: text/plain`; direct testing showed `application/json` also works.
@@ -18,8 +16,8 @@ The API accepts JSON request bodies. The community examples use `Content-Type: t
 
 The `device_id` is case-sensitive.
 
-- `AABBCCDDEEFF`: works.
-- `aabbccddeeff`: returns `{"result":"NG","error":"0002"}`.
+- Uppercase device IDs work.
+- Lowercase device IDs can return `{"result":"NG","error":"0002"}`.
 
 ## Read Request
 
@@ -27,7 +25,7 @@ The `device_id` is case-sensitive.
 curl -sS --max-time 10 \
   -H 'Content-Type: text/plain' \
   --data '{"device_id":"AABBCCDDEEFF","device_sub_id":0,"req_id":"","modified_by":"","set_level":"03","list":["iu_onoff","iu_op_mode","iu_set_tmp"]}' \
-  http://192.0.2.10/GetParam
+  http://<host>/GetParam
 ```
 
 Example response:
@@ -57,7 +55,7 @@ Example response:
 curl -sS --max-time 10 \
   -H 'Content-Type: text/plain' \
   --data '{"device_id":"AABBCCDDEEFF","device_sub_id":0,"req_id":"","modified_by":"","set_level":"02","value":{"iu_onoff":"1"}}' \
-  http://192.0.2.10/SetParam
+  http://<host>/SetParam
 ```
 
 The write endpoint returned `write_res=ack` and `result=OK` during testing.
@@ -152,6 +150,6 @@ The following combined request worked and should be used by the binding for poll
 
 ## Sources
 
-- Local testing against `192.0.2.10`.
+- Local testing against Fujitsu Airstage WLAN modules.
 - openHAB community thread: <https://community.openhab.org/t/fujitsu-airstage-control/168250>
 - Home Assistant integration reference: <https://github.com/danielkaldheim/ha_airstage>

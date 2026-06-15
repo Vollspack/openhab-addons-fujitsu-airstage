@@ -27,6 +27,9 @@ public final class FujitsuAirstageBindingConstants {
     public static final ThingTypeUID THING_TYPE_AC = new ThingTypeUID(BINDING_ID, "ac");
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Set.of(THING_TYPE_AC);
 
+    public static final String CONFIG_HOST = "host";
+    public static final String CONFIG_DEVICE_ID = "deviceId";
+
     public static final String CHANNEL_POWER = "power";
     public static final String CHANNEL_MODE = "mode";
     public static final String CHANNEL_TARGET_TEMPERATURE = "target-temperature";

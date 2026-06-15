@@ -79,8 +79,8 @@ public class FujitsuAirstageApiClient {
     private JsonObject post(String path, JsonObject request)
             throws InterruptedException, TimeoutException, ExecutionException, AirstageApiException {
         ContentResponse response = httpClient.newRequest(baseUrl + path).method(HttpMethod.POST)
-                .header(HttpHeader.CONTENT_TYPE, "text/plain").content(new StringContentProvider(gson.toJson(request)),
-                        "text/plain")
+                .header(HttpHeader.CONTENT_TYPE, "text/plain")
+                .content(new StringContentProvider(gson.toJson(request)), "text/plain")
                 .timeout(timeout, java.util.concurrent.TimeUnit.MILLISECONDS).send();
         if (response.getStatus() != HttpStatus.OK_200) {
             throw new AirstageApiException("HTTP status " + response.getStatus());
