@@ -1,6 +1,6 @@
 Disclaimer: This project is independent and not affiliated with, authorized, or endorsed by Fujitsu. All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.
 
-# Fujitsu Airstage
+# Inoffical Fujitsu Airstage AddOn for OpenHAB
 
 Local openHAB 5.1.4 binding and API notes for Fujitsu Airstage WLAN modules.
 
