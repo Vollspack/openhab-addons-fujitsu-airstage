@@ -85,7 +85,11 @@ public class FujitsuAirstageApiClient {
         if (response.getStatus() != HttpStatus.OK_200) {
             throw new AirstageApiException("HTTP status " + response.getStatus());
         }
-        return gson.fromJson(response.getContentAsString(), JsonObject.class);
+        JsonObject json = gson.fromJson(response.getContentAsString(), JsonObject.class);
+        if (json == null) {
+            throw new AirstageApiException("Empty JSON response");
+        }
+        return json;
     }
 
     private JsonObject baseRequest(String setLevel) {

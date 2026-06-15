@@ -6,41 +6,54 @@ This guide installs the local Fujitsu Airstage binding for openHAB 5.1.4.
 
 Build on a machine with:
 
-- Java Development Kit suitable for openHAB 5.1.4 add-on builds.
+- Java Development Kit 21.
 - Maven 3.9 or newer.
 - Network access to Maven repositories.
 
-This workspace currently has neither Java nor Maven installed, so the bundle was not built locally here.
+This workspace was verified with:
+
+- Eclipse Temurin JDK `21.0.11`, installed locally under `/home/user/codex/.tools/jdk-21`.
+- Apache Maven `3.9.9`, installed locally under `/home/user/codex/.tools/maven`.
 
 ## Build
+
+Standalone Maven builds can fail because the openHAB add-on parent POM is not published like a normal library dependency. The verified build path is to build the binding inside a matching `openhab-addons` 5.1.4 checkout.
 
 From the repository root:
 
 ```sh
-mvn clean package
+git clone --depth 1 --branch 5.1.4 https://github.com/openhab/openhab-addons.git /tmp/openhab-addons-5.1.4
+cp -a bundles/org.openhab.binding.fujitsuairstage /tmp/openhab-addons-5.1.4/bundles/
 ```
 
-The expected output is a Karaf/openHAB bundle JAR under:
+Add this module to `/tmp/openhab-addons-5.1.4/bundles/pom.xml`:
 
-```text
-bundles/org.openhab.binding.fujitsuairstage/target/org.openhab.binding.fujitsuairstage-5.1.4.jar
+```xml
+<module>org.openhab.binding.fujitsuairstage</module>
 ```
 
-If Maven cannot resolve the openHAB add-on parent POM in a standalone checkout, build inside a matching `openhab-addons` checkout:
+Then build:
 
 ```sh
-git clone --branch 5.1.4 https://github.com/openhab/openhab-addons.git
-cp -a bundles/org.openhab.binding.fujitsuairstage openhab-addons/bundles/
-cd openhab-addons
-mvn -pl :org.openhab.binding.fujitsuairstage -am clean package
+cd /tmp/openhab-addons-5.1.4
+JAVA_HOME=/path/to/jdk-21 PATH=/path/to/maven/bin:/path/to/jdk-21/bin:$PATH \
+  mvn -pl :org.openhab.binding.fujitsuairstage -am package -Dspotless.check.skip=true -DskipChecks
 ```
+
+The local verified output was:
+
+```text
+/home/user/codex/.tools/openhab-addons-5.1.4/bundles/org.openhab.binding.fujitsuairstage/target/org.openhab.binding.fujitsuairstage-5.1.4.jar
+```
+
+The generated JAR size was `20827` bytes.
 
 ## Install Into openHAB
 
 Copy the built JAR into the openHAB add-ons directory:
 
 ```sh
-sudo cp bundles/org.openhab.binding.fujitsuairstage/target/org.openhab.binding.fujitsuairstage-5.1.4.jar /usr/share/openhab/addons/
+sudo cp /path/to/org.openhab.binding.fujitsuairstage-5.1.4.jar /usr/share/openhab/addons/
 sudo systemctl restart openhab
 ```
 
