@@ -53,6 +53,11 @@
     <item-type>Switch</item-type>
     <label>Power</label>
     <description>Power state.</description>
+    <category>Switch</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Power</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
@@ -60,6 +65,11 @@
     <item-type>Number</item-type>
     <label>Mode</label>
     <description>Operation mode: 0 AUTO, 1 COOL, 2 DRY, 3 FAN, 4 HEAT.</description>
+    <category>Settings</category>
+    <tags>
+      <tag>Control</tag>
+      <tag>Mode</tag>
+    </tags>
     <state readOnly="false">
       <options>
         <option value="0">Auto</option>
@@ -75,13 +85,23 @@
     <item-type>Number:Temperature</item-type>
     <label>Target Temperature</label>
     <description>Temperature setpoint.</description>
-    <state readOnly="false" pattern="%.1f %unit%"/>
+    <category>Temperature</category>
+    <tags>
+      <tag>Setpoint</tag>
+      <tag>Temperature</tag>
+    </tags>
+    <state min="16" max="30" step="0.5" readOnly="false" pattern="%.1f %unit%"/>
   </channel-type>
 
   <channel-type id="indoor-temperature">
     <item-type>Number:Temperature</item-type>
     <label>Indoor Temperature</label>
     <description>Indoor temperature reported by iu_indoor_tmp.</description>
+    <category>Temperature</category>
+    <tags>
+      <tag>Measurement</tag>
+      <tag>Temperature</tag>
+    </tags>
     <state readOnly="true" pattern="%.1f %unit%"/>
   </channel-type>
 
@@ -89,6 +109,11 @@
     <item-type>Number:Temperature</item-type>
     <label>Outdoor Temperature</label>
     <description>Outdoor temperature reported by ou_outdoor_tmp when available.</description>
+    <category>Temperature</category>
+    <tags>
+      <tag>Measurement</tag>
+      <tag>Temperature</tag>
+    </tags>
     <state readOnly="true" pattern="%.1f %unit%"/>
   </channel-type>
 
@@ -96,6 +121,11 @@
     <item-type>Number</item-type>
     <label>Fan Speed</label>
     <description>Fan speed: 0 AUTO, 2 LOW, 5 NORMAL, 8 MEDIUM, 11 HIGH.</description>
+    <category>Fan</category>
+    <tags>
+      <tag>Control</tag>
+      <tag>Speed</tag>
+    </tags>
     <state readOnly="false">
       <options>
         <option value="0">Auto</option>
@@ -111,6 +141,11 @@
     <item-type>Number</item-type>
     <label>Vertical Direction</label>
     <description>Vertical airflow direction.</description>
+    <category>MoveControl</category>
+    <tags>
+      <tag>Control</tag>
+      <tag>Tilt</tag>
+    </tags>
     <state readOnly="false">
       <options>
         <option value="1">0 degrees</option>
@@ -125,48 +160,87 @@
     <item-type>Switch</item-type>
     <label>Vertical Swing</label>
     <description>Vertical airflow swing.</description>
+    <category>MoveControl</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Tilt</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
   <channel-type id="economy">
     <item-type>Switch</item-type>
     <label>Economy</label>
+    <category>Switch</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Mode</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
   <channel-type id="powerful">
     <item-type>Switch</item-type>
     <label>Powerful</label>
+    <category>Switch</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Mode</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
   <channel-type id="minimum-heat">
     <item-type>Switch</item-type>
     <label>Minimum Heat</label>
+    <category>Heating</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Mode</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
   <channel-type id="low-noise">
     <item-type>Switch</item-type>
     <label>Low Noise</label>
+    <category>SoundVolume</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Mode</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
   <channel-type id="fan-control">
     <item-type>Switch</item-type>
     <label>Fan Control</label>
+    <category>Fan</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Mode</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
   <channel-type id="human-detect-auto-save">
     <item-type>Switch</item-type>
     <label>Human Detect Auto Save</label>
+    <category>Presence</category>
+    <tags>
+      <tag>Switch</tag>
+      <tag>Mode</tag>
+    </tags>
     <state readOnly="false"/>
   </channel-type>
 
   <channel-type id="error-code">
     <item-type>String</item-type>
     <label>Error Code</label>
+    <category>Error</category>
+    <tags>
+      <tag>Status</tag>
+    </tags>
     <state readOnly="true"/>
   </channel-type>
 
@@ -174,6 +248,10 @@
     <item-type>String</item-type>
     <label>Raw Status</label>
     <description>Raw JSON status response for diagnostics.</description>
+    <category>Text</category>
+    <tags>
+      <tag>Status</tag>
+    </tags>
     <state readOnly="true"/>
   </channel-type>
 </thing:thing-descriptions>
