@@ -16,6 +16,7 @@ The local API does not require cloud credentials. The `device_id` is the MAC add
 
 - [docs/api-notes.md](docs/api-notes.md): verified local REST API behavior.
 - [docs/openhab-installation.md](docs/openhab-installation.md): build, installation, and configuration guide for openHAB 5.1.4.
+- [docs/local-openhab-test-instance.md](docs/local-openhab-test-instance.md): local persisted openHAB 5.1.4 test runtime in this workspace.
 - [bundles/org.openhab.binding.fujitsuairstage](bundles/org.openhab.binding.fujitsuairstage): openHAB binding source.
 
 ## Current Binding Scope
