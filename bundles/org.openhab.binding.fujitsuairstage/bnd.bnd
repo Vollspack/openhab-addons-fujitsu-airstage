@@ -1,0 +1,4 @@
+Bundle-Name: ${project.name}
+Bundle-SymbolicName: ${project.artifactId}
+Bundle-Vendor: openHAB
+Import-Package: *
