@@ -4,6 +4,12 @@ Disclaimer: This project is independent and not affiliated with, authorized, or 
 
 Local openHAB 5.1.4 binding and API notes for Fujitsu Airstage WLAN modules.
 
+## Quick Start
+
+If you only want to install the prebuilt JAR and add your air conditioner through Main UI autodiscovery, start here:
+
+- [Quick JAR installation and autodiscovery guide](docs/quick-jar-installation.md)
+
 ## Device Configuration
 
 Configure each Thing with:
@@ -16,6 +22,7 @@ The local API does not require cloud credentials. The `device_id` is the MAC add
 ## Contents
 
 - [docs/api-notes.md](docs/api-notes.md): verified local REST API behavior.
+- [docs/quick-jar-installation.md](docs/quick-jar-installation.md): short guide for installing the prebuilt JAR and adding a Thing through autodiscovery.
 - [docs/openhab-installation.md](docs/openhab-installation.md): build, installation, and configuration guide for openHAB 5.1.4.
 - [bundles/org.openhab.binding.fujitsuairstage](bundles/org.openhab.binding.fujitsuairstage): openHAB binding source.
 
