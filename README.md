@@ -1,5 +1,7 @@
 Disclaimer: This project is independent and not affiliated with, authorized, or endorsed by Fujitsu. All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.
 
+Use at your own risk. This project, including source code, binary JAR files, documentation, and installation instructions, is provided "as is" without warranty of any kind. You are solely responsible for verifying that it is suitable and safe for your installation.
+
 # Inoffical Fujitsu Airstage AddOn for OpenHAB
 
 Local openHAB 5.1.4 binding and API notes for Fujitsu Airstage WLAN modules.
