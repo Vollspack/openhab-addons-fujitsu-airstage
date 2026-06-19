@@ -106,7 +106,7 @@ Fan speed values from community testing:
 
 ## Notes
 
-- `outdoor-temperature` is read from `iu_outdoor_tmp`, with `ou_outdoor_tmp` as a fallback. Empty or unsupported values are reported as `UNDEF`.
-- `indoor-temperature` and `iu_outdoor_tmp` are converted from the device's Celsius offset format: `(raw - 5000) / 100`. The `ou_outdoor_tmp` fallback uses centi-degrees Celsius: `raw / 100`.
+- `outdoor-temperature` is read from `ou_outdoor_tmp`, with `iu_outdoor_tmp` as a fallback. Empty or unsupported values are reported as `UNDEF`.
+- `indoor-temperature` and the `iu_outdoor_tmp` fallback are converted from the device's Celsius offset format: `(raw - 5000) / 100`. `ou_outdoor_tmp` uses centi-degrees Celsius: `raw / 100`.
 - The binding uses one combined status request per poll interval.
 - The local API is undocumented and reverse engineered, so firmware updates may change behavior.

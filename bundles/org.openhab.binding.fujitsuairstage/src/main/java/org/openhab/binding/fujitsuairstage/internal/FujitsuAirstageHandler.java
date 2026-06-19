@@ -211,9 +211,9 @@ public class FujitsuAirstageHandler extends BaseThingHandler {
         return measuredTemperature(rawValue);
     }
 
-    private static State outdoorTemperature(String primaryRawValue, String fallbackRawValue) {
-        State primary = measuredTemperature(primaryRawValue);
-        return UnDefType.UNDEF.equals(primary) ? centiCelsiusTemperature(fallbackRawValue) : primary;
+    private static State outdoorTemperature(String offsetRawValue, String centiCelsiusRawValue) {
+        State primary = centiCelsiusTemperature(centiCelsiusRawValue);
+        return UnDefType.UNDEF.equals(primary) ? measuredTemperature(offsetRawValue) : primary;
     }
 
     private static State measuredTemperature(String rawValue) {

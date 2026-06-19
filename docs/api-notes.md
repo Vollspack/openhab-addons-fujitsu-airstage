@@ -103,7 +103,9 @@ celsius = (raw - 5000) / 100
 
 For `7625`, this gives `26.25 C`.
 
-`ou_outdoor_tmp` exists but can return an empty string. When populated, observed values are centi-degrees Celsius without the 5000 offset. The binding should prefer `iu_outdoor_tmp`, fall back to `ou_outdoor_tmp`, and publish `UNDEF` when both are empty or unsupported.
+`ou_outdoor_tmp` exists but can return an empty string. When populated, observed values are centi-degrees Celsius without the 5000 offset and match the Airstage app outdoor temperature more closely than `iu_outdoor_tmp`. The binding should prefer `ou_outdoor_tmp`, fall back to `iu_outdoor_tmp`, and publish `UNDEF` when both are empty or unsupported.
+
+The module rejects combined `GetParam` lists with more than 20 parameters, returning `{"result":"NG","error":"0002"}`. Keep the polling request at 20 parameters or fewer.
 
 ## Error Codes Observed
 
@@ -128,7 +130,6 @@ The following combined request worked and should be used by the binding for poll
     "iu_op_mode",
     "iu_fan_spd",
     "iu_set_tmp",
-    "iu_af_inc_vrt",
     "iu_af_dir_vrt",
     "iu_af_swg_vrt",
     "iu_af_swg_hrz",
