@@ -82,8 +82,9 @@ The write endpoint returned `write_res=ack` and `result=OK` during testing.
 | `iu_err_code` | read | Error code | Seen value `0` |
 | `iu_demand` | read | Demand control | Seen value `0` |
 | `iu_fltr_sign_reset` | read/write | Filter sign reset | Seen value `65535`, likely unavailable |
-| `iu_indoor_tmp` | read | Indoor temperature | Appeared as centi-degrees Fahrenheit |
-| `ou_outdoor_tmp` | read | Outdoor temperature | Valid parameter, but returned empty |
+| `iu_indoor_tmp` | read | Indoor temperature | Encoded as Celsius offset by 5000, e.g. `7625` = 26.25 C |
+| `iu_outdoor_tmp` | read | Outdoor temperature | Encoded as Celsius offset by 5000, e.g. `6700` = 17.0 C |
+| `ou_outdoor_tmp` | read | Outdoor temperature alias observed on some devices | Centi-degrees Celsius when populated, but may return empty |
 
 ## Temperature Conversion
 
@@ -94,16 +95,15 @@ celsius = raw / 10
 raw = celsius * 10
 ```
 
-`iu_indoor_tmp` returned `7325`. This is plausible as centi-degrees Fahrenheit:
+`iu_indoor_tmp` and `iu_outdoor_tmp` use Celsius values offset by 5000:
 
 ```text
-fahrenheit = raw / 100
-celsius = (fahrenheit - 32) * 5 / 9
+celsius = (raw - 5000) / 100
 ```
 
-For `7325`, this gives approximately `22.9 C`.
+For `7625`, this gives `26.25 C`.
 
-`ou_outdoor_tmp` exists but returned an empty string, including after the unit was switched on for about 20 seconds. The binding should publish `UNDEF` for empty outdoor temperature.
+`ou_outdoor_tmp` exists but can return an empty string. When populated, observed values are centi-degrees Celsius without the 5000 offset. The binding should prefer `iu_outdoor_tmp`, fall back to `ou_outdoor_tmp`, and publish `UNDEF` when both are empty or unsupported.
 
 ## Error Codes Observed
 
@@ -143,6 +143,7 @@ The following combined request worked and should be used by the binding for poll
     "iu_demand",
     "iu_fltr_sign_reset",
     "iu_indoor_tmp",
+    "iu_outdoor_tmp",
     "ou_outdoor_tmp"
   ]
 }

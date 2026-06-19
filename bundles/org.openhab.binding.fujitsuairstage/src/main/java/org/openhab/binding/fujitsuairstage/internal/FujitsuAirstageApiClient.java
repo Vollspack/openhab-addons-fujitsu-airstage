@@ -33,7 +33,7 @@ public class FujitsuAirstageApiClient {
     private static final String[] STATUS_PARAMETERS = { "iu_onoff", "iu_op_mode", "iu_fan_spd", "iu_set_tmp",
             "iu_af_inc_vrt", "iu_af_dir_vrt", "iu_af_swg_vrt", "iu_af_swg_hrz", "iu_af_dir_hrz", "ou_low_noise",
             "iu_fan_ctrl", "iu_hmn_det_auto_save", "iu_min_heat", "iu_powerful", "iu_economy", "iu_err_code",
-            "iu_demand", "iu_fltr_sign_reset", "iu_indoor_tmp", "ou_outdoor_tmp" };
+            "iu_demand", "iu_fltr_sign_reset", "iu_indoor_tmp", "iu_outdoor_tmp", "ou_outdoor_tmp" };
 
     private final Gson gson = new Gson();
     private final HttpClient httpClient;

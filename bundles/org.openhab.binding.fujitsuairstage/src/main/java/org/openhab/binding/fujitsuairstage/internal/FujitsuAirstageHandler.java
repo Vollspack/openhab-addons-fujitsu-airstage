@@ -171,7 +171,8 @@ public class FujitsuAirstageHandler extends BaseThingHandler {
         updateState(CHANNEL_FAN_SPEED, toDecimal(status.get("iu_fan_spd")));
         updateState(CHANNEL_TARGET_TEMPERATURE, targetTemperature(status.get("iu_set_tmp")));
         updateState(CHANNEL_INDOOR_TEMPERATURE, indoorTemperature(status.get("iu_indoor_tmp")));
-        updateState(CHANNEL_OUTDOOR_TEMPERATURE, outdoorTemperature(status.get("ou_outdoor_tmp")));
+        updateState(CHANNEL_OUTDOOR_TEMPERATURE,
+                outdoorTemperature(status.get("iu_outdoor_tmp"), status.get("ou_outdoor_tmp")));
         updateState(CHANNEL_VERTICAL_DIRECTION, toDecimal(status.get("iu_af_dir_vrt")));
         updateState(CHANNEL_VERTICAL_SWING, toOnOff(status.get("iu_af_swg_vrt")));
         updateState(CHANNEL_ECONOMY, toOnOff(status.get("iu_economy")));
@@ -207,25 +208,30 @@ public class FujitsuAirstageHandler extends BaseThingHandler {
     }
 
     private static State indoorTemperature(String rawValue) {
+        return measuredTemperature(rawValue);
+    }
+
+    private static State outdoorTemperature(String primaryRawValue, String fallbackRawValue) {
+        State primary = measuredTemperature(primaryRawValue);
+        return UnDefType.UNDEF.equals(primary) ? centiCelsiusTemperature(fallbackRawValue) : primary;
+    }
+
+    private static State measuredTemperature(String rawValue) {
         BigDecimal raw = parseNullableDecimal(rawValue);
         if (raw == null) {
             return UnDefType.UNDEF;
         }
-        BigDecimal fahrenheit = raw.divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
-        BigDecimal celsius = fahrenheit.subtract(BigDecimal.valueOf(32)).multiply(BigDecimal.valueOf(5))
-                .divide(BigDecimal.valueOf(9), 1, RoundingMode.HALF_UP);
+        BigDecimal celsius = raw.subtract(BigDecimal.valueOf(5000)).divide(BigDecimal.valueOf(100), 2,
+                RoundingMode.HALF_UP);
         return celsius(celsius);
     }
 
-    private static State outdoorTemperature(String rawValue) {
+    private static State centiCelsiusTemperature(String rawValue) {
         BigDecimal raw = parseNullableDecimal(rawValue);
         if (raw == null) {
             return UnDefType.UNDEF;
         }
-        BigDecimal fahrenheit = raw.divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
-        BigDecimal celsius = fahrenheit.subtract(BigDecimal.valueOf(32)).multiply(BigDecimal.valueOf(5))
-                .divide(BigDecimal.valueOf(9), 1, RoundingMode.HALF_UP);
-        return celsius(celsius);
+        return celsius(raw.divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP));
     }
 
     private static QuantityType<Temperature> celsius(BigDecimal value) {
